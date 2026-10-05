@@ -1,6 +1,6 @@
 [app]
-title = Timoteo Auto
-package.name = timoteoauto
+title = Timoteo SMS
+package.name = timoteosms
 package.domain = org.timoteonet
 
 source.dir = .
@@ -10,7 +10,7 @@ version = 1.0.0
 
 requirements = python3,kivy,pyjnius
 
-android.permissions = RECEIVE_SMS, READ_SMS, CALL_PHONE, READ_PHONE_STATE
+android.permissions = SEND_SMS, READ_SMS, RECEIVE_SMS, READ_CONTACTS
 
 orientation = portrait
 fullscreen = 0
