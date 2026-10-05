@@ -1,4 +1,4 @@
-name: Compilar APK Android
+name: Compilar APK Rapido
 
 on:
   push:
@@ -7,30 +7,30 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout código
       uses: actions/checkout@v4
 
     - name: Configurar Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.10'
 
-    - name: Instalar Dependencias do Sistema
+    - name: Instalar Dependências Mínimas
       run: |
         sudo apt-get update
-        sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libffi-dev libssl-dev aidl ccache
+        sudo apt-get install -y git ccache openjdk-17-jdk python3-pip
         pip install --upgrade pip setuptools buildozer cython
 
-    - name: Compilar APK com Buildozer
+    - name: Compilar APK
       run: |
         yes | buildozer android debug
 
-    - name: Disponibilizar APK para Download
+    - name: Enviar APK para Download
       uses: actions/upload-artifact@v4
       with:
-        name: timoteo-auto-apk
+        name: timoteo-sms-apk
         path: bin/*.apk
         
