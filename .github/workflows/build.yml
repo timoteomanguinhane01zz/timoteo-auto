@@ -7,24 +7,30 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout código
+    - name: Checkout codigo
       uses: actions/checkout@v4
+
+    - name: Configurar Java JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
 
     - name: Configurar Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
-    - name: Instalar Dependências Mínimas
+    - name: Instalar Dependencias do Sistema
       run: |
         sudo apt-get update
-        sudo apt-get install -y git ccache openjdk-17-jdk python3-pip
-        pip install --upgrade pip setuptools buildozer cython
+        sudo apt-get install -y git zip unzip python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libffi-dev libssl-dev aidl ccache
+        pip install --upgrade pip setuptools "buildozer>=1.5.0" cython
 
-    - name: Compilar APK
+    - name: Compilar APK com Buildozer
       run: |
         yes | buildozer android debug
 
